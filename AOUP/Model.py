@@ -20,19 +20,19 @@ def stacked_pytorch_init(key, shape, dtype=jnp.float32):
 def scaled_stacked_init(input_scale):
     def init(key, shape, dtype=jnp.float32):
         W = stacked_pytorch_init(key, shape, dtype)
-        s = jnp.asarray(input_scale, dtype)[None, :, None]      # (1, dim_in, 1)
+        s = jnp.asarray(input_scale, dtype)[None, :, None]
         return W / s
     return init
 
 def scaled_dense_init(input_scale):
     def init(key, shape, dtype=jnp.float32):
         W = pytorch_init(key, shape, dtype)
-        s = jnp.asarray(input_scale, dtype)[:, None]            # (fan_in, 1)
+        s = jnp.asarray(input_scale, dtype)[:, None]
         return W / s
     return init
 
 # ═════════════════════════════════════════════════════════════════════════
-# Fully connected network
+# Fully connected network (FCN)
 # ═════════════════════════════════════════════════════════════════════════
 class Ritz(nn.Module):
     n_hid: int

@@ -23,7 +23,6 @@ parser.add_argument("--lr", type=float, default=1e-2)
 parser.add_argument("--lmbda", type=float, required=True)
 parser.add_argument("--epoch", type=int, default=10000)
 parser.add_argument("--dt", type=float, default=0.001)
-# tstep이 커짐에 따라서 loss가 작아지는 것을 확인해야 한다.
 parser.add_argument("--tstep", type=int, default=5000)
 args = parser.parse_args()
 
@@ -72,7 +71,7 @@ Va = math.sqrt(2 * dt * Da / (τ ** 2))
 # ═════════════════════════════════════════════════════════════════════════
 # Initial state
 # ═════════════════════════════════════════════════════════════════════════
-key = jax.random.PRNGKey(42)
+key = jax.random.PRNGKey(int.from_bytes(os.urandom(4), "big"))
 key, key_model, key_r, key_a = jax.random.split(key, 4)
 
 a = math.sqrt(Da / τ) * jax.random.normal(key_a, (B, N))

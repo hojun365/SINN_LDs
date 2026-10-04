@@ -69,7 +69,7 @@ Va = math.sqrt(2 * dt * Da / (τ ** 2))
 # ═════════════════════════════════════════════════════════════════════════
 # Initial state
 # ═════════════════════════════════════════════════════════════════════════
-key = jax.random.PRNGKey(42)
+key = jax.random.PRNGKey(int.from_bytes(os.urandom(4), "big"))
 key, key_model, key_r, key_a = jax.random.split(key, 4)
 
 a = math.sqrt(Da / τ) * jax.random.normal(key_a, (B, N))
